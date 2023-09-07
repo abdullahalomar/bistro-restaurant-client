@@ -1,31 +1,29 @@
+import { Link } from 'react-router-dom';
+import frame from '../../../assets/icon/Frame.svg'
 const Navbar = () => {
 
     const navOptions = <>
              <li>
-              <a>Item 1</a>
-            </li>
-            <li tabIndex={0}>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
+              <Link to='/'>Home</Link>
             </li>
             <li>
-              <a>Item 3</a>
+              <a>Contact us</a>
+            </li>
+            <li>
+              <a>Dashboard</a>
+            </li>
+            <li>
+              <Link to='/menu'>Our Menu</Link>
+            </li>
+            <li>
+              <a>Our Shop</a>
             </li>
     </>
 
   return (
     <div>
-      <div className="navbar fixed z-10 bg-opacity-20 text-white font-bold text-6xl bg-base-100">
-        <div className="navbar-start">
+      <div className="navbar fixed z-10 bg-opacity-20 text-white font-bold bg-base-100">
+        <div className="navbar">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
@@ -50,7 +48,7 @@ const Navbar = () => {
           {navOptions}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">Restaurant</a>
+          <a className="normal-case text-xl">Restaurant</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -58,7 +56,10 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <a className="uppercase">
+            sign out
+            <img src={frame} alt="" />
+            </a>
         </div>
       </div>
     </div>

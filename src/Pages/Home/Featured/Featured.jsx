@@ -1,15 +1,15 @@
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import featuredImg from '../../../assets/home/featured.jpg';
-import '../Featured/Featured'
+import '../Featured/Featured.css'
 
 const Featured = () => {
     return (
-        <div className="featured-item text-white bg-fixed">
+        <section className="featured-item text-white bg-fixed bg-slate-500 bg-opacity-60 pt-6">
             <div className="max-w-screen-xl mx-28 mb-14">
             <SectionTitle subHeading='Check it out' heading='FROM OUR MENU'>
 
             </SectionTitle>
-            <div className="md:flex justify-center items-center pb-20 pt-12 px-36 bg-slate-500 bg-opacity-10">
+            <div className="md:flex justify-center items-center pb-20 pt-12 px-36">
                 <div>
                     <img src={featuredImg} alt="" />
                 </div>
@@ -21,7 +21,7 @@ const Featured = () => {
                 </div>
             </div>
         </div>
-        </div>
+        </section>
     );
 };
 
