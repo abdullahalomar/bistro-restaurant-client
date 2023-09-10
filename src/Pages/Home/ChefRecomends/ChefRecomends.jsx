@@ -2,6 +2,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import salad from '../../../assets/menu/salad-bg.jpg';
 
 const ChefRecomends = () => {
+ 
   return (
     <section className="max-w-screen-xl mx-28 mb-14">
       <SectionTitle
