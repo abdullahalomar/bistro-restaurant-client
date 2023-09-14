@@ -1,32 +1,60 @@
-import { Link } from 'react-router-dom';
-import frame from '../../../assets/icon/Frame.svg'
-import { useContext } from 'react';
-import { AuthContext } from '../../../providers/AuthProvider';
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { FaCartPlus } from 'react-icons/fa';
+
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext);
-    const handleLogOut = () => {
-        logOut()
-        .then(() => {})
-        .catch(error => console.log(error))
-    }
-    const navOptions = <>
-             <li><Link to='/'>Home</Link></li>
-            <li><a>Contact us</a></li>
-            <li><a>Dashboard</a></li>
-            <li><Link to='/menu'>Our Menu</Link></li>
-            <li><Link to='/order/salad'>Our Shop</Link></li>
-            <li><Link to='/secret'>Secret</Link></li>
-            
-            {
-            user ? <>
-            <span className="badge badge-neutral">{user.displayName}</span>
-            
-            <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
-            </> : <>
-            <li><Link to='/login'>Login </Link></li> 
-            </>
-            }
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+  const navOptions = (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <a>Contact us</a>
+      </li>
+      <li>
+        <a>Dashboard</a>
+      </li>
+      <li>
+        <Link to="/menu">Our Menu</Link>
+      </li>
+      <li>
+        <Link to="/order/salad">Our Shop</Link>
+      </li>
+      <li>
+        <Link to="/secret">Secret</Link>
+      </li>
+      <li>
+        <Link to="/">
+          <div className="flex items-center gap-1">
+            <FaCartPlus size={24}></FaCartPlus>
+            <div className="badge">0</div>
+          </div>
+        </Link>
+      </li>
+      {user ? (
+        <>
+          <span className="badge badge-neutral">{user.displayName}</span>
+
+          <button onClick={handleLogOut} className="btn btn-ghost">
+            Log Out
+          </button>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/login">Login </Link>
+          </li>
+        </>
+      )}
     </>
+  );
 
   return (
     <div>
@@ -53,22 +81,20 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-          {navOptions}
+              {navOptions}
             </ul>
           </div>
           <a className="normal-case text-xl">Restaurant</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-       {navOptions}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
-        <div className="navbar-end">
+        {/* <div className="navbar-end">
           <a className="uppercase">
             sign out
             <img src={frame} alt="" />
-            </a>
-        </div>
+          </a>
+        </div> */}
       </div>
     </div>
   );
