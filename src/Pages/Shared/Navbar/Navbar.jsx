@@ -15,13 +15,12 @@ const Navbar = () => {
             <li><a>Dashboard</a></li>
             <li><Link to='/menu'>Our Menu</Link></li>
             <li><Link to='/order/salad'>Our Shop</Link></li>
-            <li><Link to='/login'>Login </Link></li>
+            <li><Link to='/secret'>Secret</Link></li>
+            
             {
-            user ? 
-            <>
-            <button onClick={handleLogOut} className="btn btn-info">Info</button>
-            </> : 
-            <>
+            user ? <>
+            <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
+            </> : <>
             <li><Link to='/login'>Login </Link></li> 
             </>
             }
