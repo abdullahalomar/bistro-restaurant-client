@@ -19,6 +19,8 @@ const Navbar = () => {
             
             {
             user ? <>
+            <span className="badge badge-neutral">{user.displayName}</span>
+            
             <button onClick={handleLogOut} className="btn btn-ghost">Log Out</button>
             </> : <>
             <li><Link to='/login'>Login </Link></li> 
