@@ -1,12 +1,13 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import loginImg from '../../assets/login/login.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2'
 
 const Login = () => {
     const [disabled, setDisabled] = useState(true)
-    const captchaRef = useRef(null);
 
     const {signIn} = useContext(AuthContext);
 
@@ -24,16 +25,31 @@ const Login = () => {
         .then(result => {
           const user = result.user;
           console.log(user);
+          Swal.fire({
+            title: 'User Login Successful.',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
         })
     }
 
-    const handleValidateCaptcha = e => {
-        const user_captcha_value = captchaRef.current.value;
+    const handleValidateCaptcha = (e) => {
+        const user_captcha_value = e.target.value;
         if (validateCaptcha(user_captcha_value)) {
             setDisabled(false);
+        }else{
+          setDisabled(true);
         }
     }
   return (
+   <>
+    <Helmet>
+        <title>Restaurant | Log In</title>
+      </Helmet>
     <div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
@@ -76,13 +92,13 @@ const Login = () => {
                 <LoadCanvasTemplate />
                 </label>
                 <input
-                  ref={captchaRef}  
+                  onBlur={handleValidateCaptcha}
                   type="text"
                   name='captcha'
                   placeholder="Type here "
                   className="input input-bordered"
                 />
-                <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-4">Validate</button>
+                {/* <button className="btn btn-outline btn-xs mt-4">Validate</button> */}
               </div>
 
               <div className="form-control mt-6">
@@ -96,6 +112,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 
