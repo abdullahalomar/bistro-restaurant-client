@@ -21,9 +21,9 @@ const Navbar = () => {
       <li>
         <a>Contact us</a>
       </li>
-      <li>
-        <a>Dashboard</a>
-      </li>
+      {/* <li>
+        <Link to='/dashboard'>Dashboard</Link>
+      </li> */}
       <li>
         <Link to="/menu">Our Menu</Link>
       </li>
@@ -34,7 +34,7 @@ const Navbar = () => {
         <Link to="/secret">Secret</Link>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard/mycart">
           <div className="flex items-center gap-1">
             <FaCartPlus size={24}></FaCartPlus>
             <div className="badge">{cart?.length || 0}</div>
