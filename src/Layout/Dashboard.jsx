@@ -2,9 +2,11 @@ import { Link, Outlet } from "react-router-dom";
 import { FaShoppingCart, FaHome, FaCalendarAlt, FaMoneyBillWave, FaShoppingBag } from 'react-icons/fa';
 import { BiSolidContact } from 'react-icons/bi';
 import { TiThMenu } from 'react-icons/ti';
+import useCart from "../hooks/useCart";
 
 
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div>
       <div className="drawer lg:drawer-open ">
@@ -21,10 +23,11 @@ const Dashboard = () => {
           </label>
         </div>
         <div className="drawer-side bg-[#799ec9]">
+          
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full">
+          <ul className="menu p-4 w-80 min-h-full text-white font-bold">
             {/* Sidebar content here */}
-            
+            <p className="text-2xl text-black ps-4 mb-6">Restaurant</p>
            
             <li>
               <Link to='/dashboard/home'><FaHome></FaHome>User Home</Link>
@@ -33,7 +36,7 @@ const Dashboard = () => {
               <Link to='/dashboard/reservation'><FaCalendarAlt></FaCalendarAlt>reservation</Link>
             </li>
             <li>
-              <Link to='/dashboard/mycart'><FaShoppingCart></FaShoppingCart>My Cart</Link>
+              <Link to='/dashboard/mycart'><FaShoppingCart></FaShoppingCart>My Cart <span className="badge badge-neutral">{cart.length}</span></Link>
             </li>
             <li>
               <Link to='/dashboard/history'><FaMoneyBillWave></FaMoneyBillWave>Payment History</Link>
