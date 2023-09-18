@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const {
@@ -147,7 +148,7 @@ const SignUp = () => {
                     </p>
                   )}
                 </div>
-                <div className="form-control mt-6">
+                <div className="form-control mt-4">
                   <input
                     className="btn btn-primary"
                     type="submit"
@@ -155,7 +156,7 @@ const SignUp = () => {
                   />
                 </div>
               </form>
-              <div className="mx-auto mb-5">
+              <div className="mx-auto mb-2">
                 <p>
                   <small>Already registered?</small>{" "}
                   <Link to="/login" className="text-orange-500">
@@ -163,6 +164,7 @@ const SignUp = () => {
                   </Link>
                 </p>
               </div>
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>
