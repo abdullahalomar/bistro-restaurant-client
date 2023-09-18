@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react';
+import { FaFacebookF } from 'react-icons/fa';
+import { BsInstagram, BsTwitter } from 'react-icons/bs';
 
 
 
@@ -31,10 +31,14 @@ const Footer = () => {
       <div className="bg-indigo-950	py-14">
           <p className="text-2xl mb-4">Follow US</p>
           <p>Join us on social media</p>
-          <FontAwesomeIcon icon={faQuoteLeft} size='' />
+          <div className='flex justify-center gap-5 mt-6'>
+          <FaFacebookF size={25}/>
+          <BsInstagram size={25}/>
+          <BsTwitter size={25}/>
+          </div>
       </div>
       </div>
-      <div className='bg-gray-900 py-4'>
+      <div className='bg-gray-900 py-2'>
           <p>Copyright © {currentYear} All rights reserved.</p>
       </div>
     </footer>

@@ -47,12 +47,12 @@ const MyCart = () => {
       ></SectionTitle>
       <div className="px-20">
         <div className="uppercase text-1xl font-bold flex justify-between items-center mb-4">
-          <h1>mycart : {cart.length}</h1>
+          <h1>my cart : {cart.length}</h1>
           <h1>Total Price : ${total}</h1>
           <button className="btn btn-warning">PAYMENT</button>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="">
           <table className="table">
             {/* head */}
             <thead className="text-white">

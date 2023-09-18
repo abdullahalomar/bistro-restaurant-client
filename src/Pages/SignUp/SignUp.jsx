@@ -14,35 +14,47 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const {createUser, updateUserProfile} = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
-    createUser(data.email, data.password)
-    .then(result => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        updateUserProfile(data.name, data.photoURL)
-        .then(()=>{
-          console.log('user profile updated');
-          reset();
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'User created successfully',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/login');
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          const saveUser = {name: data.name, email: data.email}
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User created successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/login");
+              }
+            });
         })
-        .catch(error => console.log(error))
-    })
+        .catch((error) => console.log(error));
+    });
   };
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Restaurant | Sign Up</title>
       </Helmet>
       <div>
@@ -76,7 +88,6 @@ const SignUp = () => {
                   <input
                     type="text"
                     {...register("photoURL", { required: true })}
-                    
                     placeholder="Photo URL"
                     className="input input-bordered"
                   />
@@ -137,7 +148,11 @@ const SignUp = () => {
                   )}
                 </div>
                 <div className="form-control mt-6">
-                <input  className="btn btn-primary" type="submit" value="Signup" />
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Signup"
+                  />
                 </div>
               </form>
               <div className="mx-auto mb-5">
