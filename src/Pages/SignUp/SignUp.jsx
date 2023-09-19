@@ -35,7 +35,7 @@ const SignUp = () => {
             body: JSON.stringify(saveUser),
           })
             .then((res) => res.json())
-            .then((data) => {
+            .then(data => {
               if (data.insertedId) {
                 reset();
                 Swal.fire({
