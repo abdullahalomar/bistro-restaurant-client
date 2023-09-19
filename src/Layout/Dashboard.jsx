@@ -12,12 +12,15 @@ import { ImSpoonKnife } from "react-icons/im";
 import { MdManageSearch } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
 
   // TODO: this admin load from server later
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  console.log(isAdmin);
 
   return (
     <div>
@@ -43,7 +46,7 @@ const Dashboard = () => {
             {isAdmin ? (
               <>
                 <li>
-                  <Link to="/dashboard/home">
+                  <Link to="/dashboard/adminhome">
                     <FaHome></FaHome>Admin Home
                   </Link>
                 </li>
