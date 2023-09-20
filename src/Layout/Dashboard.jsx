@@ -20,7 +20,6 @@ const Dashboard = () => {
   // TODO: this admin load from server later
   // const isAdmin = true;
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
 
   return (
     <div>
