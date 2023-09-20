@@ -3,11 +3,13 @@ import { Helmet } from "react-helmet-async";
 import { PiUsersFill } from "react-icons/pi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUsers = () => {
-  const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users");
-    return res.json();
+  const [axiosSecure] = useAxiosSecure();
+  const { data: users = [], refetch } = useQuery(['users'], async () => {
+    const res = await axiosSecure.get('/users');
+    return res.data;
   });
 
   const handleMakeAdmin = (user) => {
