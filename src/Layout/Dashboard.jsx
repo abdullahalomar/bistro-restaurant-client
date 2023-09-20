@@ -17,10 +17,9 @@ import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   const [cart] = useCart();
 
-  // TODO: this admin load from server later
   // const isAdmin = true;
   const [isAdmin] = useAdmin();
-
+console.log(isAdmin);
   return (
     <div>
       <div className="drawer lg:drawer-open ">
