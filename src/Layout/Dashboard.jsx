@@ -51,24 +51,24 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/reservation">
-                    <ImSpoonKnife></ImSpoonKnife>add items
+                  <Link to="/dashboard/addItem">
+                    <ImSpoonKnife></ImSpoonKnife>Add Items
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/reservation">
-                    <MdManageSearch size={15}></MdManageSearch>manage items
+                    <MdManageSearch size={15}></MdManageSearch>Manage Items
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/mycart">
-                    <BiSolidBookAdd></BiSolidBookAdd>Manage bookings
+                    <BiSolidBookAdd></BiSolidBookAdd>Manage Bookings
                     {/* <span className="badge badge-neutral">{cart.length || 0}</span> */}
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/allusers">
-                    <FaUsers></FaUsers>all users
+                    <FaUsers></FaUsers>All Users
                   </Link>
                 </li>
               </>
@@ -81,7 +81,7 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <Link to="/dashboard/reservation">
-                    <FaCalendarAlt></FaCalendarAlt>reservation
+                    <FaCalendarAlt></FaCalendarAlt>Reservation
                   </Link>
                 </li>
                 <li>
