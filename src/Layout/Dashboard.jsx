@@ -56,7 +56,7 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/reservation">
+                  <Link to="/dashboard/manageitems">
                     <MdManageSearch size={15}></MdManageSearch>Manage Items
                   </Link>
                 </li>
