@@ -23,13 +23,13 @@ const Login = () => {
     loadCaptchaEnginge(6);
   }, []);
 
-  const handleLogin = (event) => {
+  const handleLogin = event => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signIn(email, password).then((result) => {
+    signIn(email, password).then(result => {
       const user = result.user;
       console.log(user);
       Swal.fire({
@@ -45,7 +45,7 @@ const Login = () => {
     });
   };
 
-  const handleValidateCaptcha = (e) => {
+  const handleValidateCaptcha = e => {
     const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);

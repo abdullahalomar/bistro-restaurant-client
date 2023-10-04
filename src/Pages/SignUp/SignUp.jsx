@@ -19,23 +19,23 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
 
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          const saveUser = {name: data.name, email: data.email}
+          const saveUser = { name: data.name, email: data.email };
+
           fetch("http://localhost:5000/users", {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "content-type": "application/json",
+              'content-type': 'application/json',
             },
             body: JSON.stringify(saveUser),
           })
             .then((res) => res.json())
-            .then(data => {
+            .then((data) => {
               if (data.insertedId) {
                 reset();
                 Swal.fire({
@@ -45,9 +45,19 @@ const SignUp = () => {
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                navigate("/login");
+                navigate("/");
               }
-            });
+            })
+          // fetch("http://localhost:5000/users", {
+          //   method: "POST",
+          //   headers: {
+          //     "content-type": "application/json",
+          //   },
+          //   body: JSON.stringify(saveUser),
+          // })
+          //   .then((res) => res.json())
+          //   .then(data => {
+          //     if (data.insertedId) {
         })
         .catch((error) => console.log(error));
     });
@@ -160,7 +170,7 @@ const SignUp = () => {
                 <p>
                   <small>Already registered?</small>{" "}
                   <Link to="/login" className="text-orange-500">
-                    Go to log in
+                    Go to login
                   </Link>
                 </p>
               </div>

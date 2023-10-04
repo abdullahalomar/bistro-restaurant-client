@@ -3,23 +3,24 @@ import { Helmet } from "react-helmet-async";
 import { PiUsersFill } from "react-icons/pi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 
 const AllUsers = () => {
 
-  const { data: users = [], refetch } = useQuery(['users'], async () => {
-    const res = await fetch('http://localhost:5000/users');
-    return res.json();
-  });
-
-  // const [axiosSecure] = useAxiosSecure();
   // const { data: users = [], refetch } = useQuery(['users'], async () => {
-  //   const res = await axiosSecure.get('/users');
-  //   return res.data;
-  // });
+  //   const res = await fetch('http://localhost:5000/users')
+  //   return res.json();
+  // })
 
-  const handleMakeAdmin = (user) => {
-        fetch(`http://localhost:5000/users/admin/${user._id}`, {
+  const [axiosSecure] = useAxiosSecure(); 
+  const { data: users = [], refetch } = useQuery(['users'], async () => {
+    const res = await axiosSecure.get('/users');
+    return res.data;
+  })
+
+  const handleMakeAdmin = user => {
+        fetch(`http://localhost:5000/users/admin/${user?._id}`, {
             method: 'PATCH'
         })
         .then(res => res.json())
@@ -30,7 +31,7 @@ const AllUsers = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: `${user.name} is an Admin Now!`,
+                    title: `${user?.name} is an Admin Now!`,
                     showConfirmButton: false,
                     timer: 1500
                   })
@@ -49,7 +50,7 @@ const AllUsers = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/users/admin/${user._id}`, {
+          fetch(`http://localhost:5000/users/admin/${user?._id}`, {
             method: "DELETE",
           })
             .then(res => res.json())
@@ -84,13 +85,13 @@ const AllUsers = () => {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <tr key={user._id}>
+                <tr key={user?._id}>
                   <th>{index + 1}</th>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
                     {
-                        user.role === 'admin' ? 'admin' : 
+                        user?.role === 'admin' ? <span className="font-bold text-green-600 text-lg">admin</span> : 
                         <button onClick={() => handleMakeAdmin(user)} className="btn btn-ghost  bg-violet-400">
                       <PiUsersFill size={15}></PiUsersFill>
                     </button>

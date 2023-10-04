@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from '../../providers/AuthProvider';
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
+import useAuth from "../../hooks/useAuth";
 
 const FoodCard = ({ item }) => {
   const { name, recipe, image, price, _id } = item;
-  const {user} = useContext(AuthContext);
+  const {user} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [, refetch] = useCart();
@@ -16,11 +15,11 @@ const FoodCard = ({ item }) => {
       if (user && user.email) {
         const cartItem = {menuItemId: _id, name, image, price, email: user.email}
         fetch('http://localhost:5000/carts', {
-              method: 'POST',
-              headers:{
-                'content-type': 'application/json'
-              },
-              body: JSON.stringify(cartItem)
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(cartItem)
         })
         .then(res => res.json())
         .then(data => {
@@ -33,7 +32,7 @@ const FoodCard = ({ item }) => {
               showConfirmButton: false,
               timer: 1500
             })
-            refetch()
+            // refetch()
           }
         })
       }
@@ -57,7 +56,7 @@ const FoodCard = ({ item }) => {
       <div className="card w-84 bg-base-100 shadow-xl">
         <figure>
           <img
-            src={image}
+            src= {image}
             alt="Shoes"
           />
         </figure>

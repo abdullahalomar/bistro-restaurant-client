@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
 import { FaCartPlus } from 'react-icons/fa';
 import useCart from "../../../hooks/useCart";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
   const [cart] = useCart();
 
   const handleLogOut = () => {
@@ -44,6 +43,7 @@ const Navbar = () => {
       {user ? (
         <>
           <span className="badge badge-neutral">{user.displayName}</span>
+          <img src={user?.photo} className="" width={50} height={40} alt="" />
 
           <button onClick={handleLogOut} className="btn btn-ghost">
             Log Out

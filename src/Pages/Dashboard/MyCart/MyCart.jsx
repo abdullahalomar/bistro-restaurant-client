@@ -6,11 +6,12 @@ import Swal from "sweetalert2";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
+  
   console.log(cart);
   // reduce cart price
   const total = cart.reduce((sum, item) => item.price + sum, 0);
 
-  // delete cart
+  // delete cart item
   const handleDelete = item => {
     Swal.fire({
       title: "Are you sure?",
@@ -23,7 +24,7 @@ const MyCart = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`http://localhost:5000/carts/${item._id}`, {
-          method: "DELETE",
+          method: 'DELETE'
         })
           .then(res => res.json())
           .then(data => {
@@ -31,10 +32,10 @@ const MyCart = () => {
               refetch();
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
-          });
+          })
       }
-    });
-  };
+    })
+  }
 
   return (
     <div className="w-full">

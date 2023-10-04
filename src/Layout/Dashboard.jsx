@@ -14,12 +14,13 @@ import { FaUsers } from "react-icons/fa";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 
+
 const Dashboard = () => {
   const [cart] = useCart();
 
   // const isAdmin = true;
   const [isAdmin] = useAdmin();
-console.log(isAdmin);
+
   return (
     <div>
       <div className="drawer lg:drawer-open ">
@@ -41,7 +42,8 @@ console.log(isAdmin);
             {/* Sidebar content here */}
             <p className="text-2xl text-black ps-4 mb-6">Restaurant</p>
 
-            {isAdmin ? (
+            {
+            isAdmin ? 
               <>
                 <li>
                   <Link to="/dashboard/adminhome">
@@ -60,8 +62,8 @@ console.log(isAdmin);
                 </li>
                 <li>
                   <Link to="/dashboard/mycart">
-                    <BiSolidBookAdd></BiSolidBookAdd>Manage bookings{" "}
-                    <span className="badge badge-neutral">{cart.length}</span>
+                    <BiSolidBookAdd></BiSolidBookAdd>Manage bookings
+                    {/* <span className="badge badge-neutral">{cart.length || 0}</span> */}
                   </Link>
                 </li>
                 <li>
@@ -70,7 +72,7 @@ console.log(isAdmin);
                   </Link>
                 </li>
               </>
-            ) : (
+             : 
               <>
                 <li>
                   <Link to="/dashboard/home">
@@ -84,8 +86,10 @@ console.log(isAdmin);
                 </li>
                 <li>
                   <Link to="/dashboard/mycart">
-                    <FaShoppingCart></FaShoppingCart>My Cart{" "}
-                    <span className="badge badge-neutral">{cart.length}</span>
+                    <FaShoppingCart></FaShoppingCart>My Cart
+                    <span className="badge badge-neutral">
+                      {cart.length || 0}
+                    </span>
                   </Link>
                 </li>
                 <li>
@@ -94,7 +98,8 @@ console.log(isAdmin);
                   </Link>
                 </li>
               </>
-            )}
+            
+            }
 
             <div className="divider"></div>
             <li>
