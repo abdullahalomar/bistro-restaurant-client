@@ -2,14 +2,33 @@ import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
 
+const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
+
 const AddItem = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const img_hosting_url = `https://api.imgbb.com/1/upload?expiration=600&key=${img_hosting_token}`
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append('image', data.image[0])
+
+    fetch(img_hosting_url, {
+      method: 'POST',
+      body: formData
+    })    
+    .then(res => res.json())
+    .then(imgResponse => {
+      console.log(imgResponse);
+    })
+  };
+
   console.log(errors);
+  console.log(img_hosting_token)
   return (
     <div className="w-full px-36">
       <Helmet>
@@ -26,53 +45,67 @@ const AddItem = () => {
         </label>
         <input
           type="text"
-          className="input input-bordered input-info w-full"
-          placeholder="First name"
-          {...register("First name", { required: true, maxLength: 80 })}
+          className="input input-bordered border-[#799ec9] border-2 w-full"
+          placeholder="Recipe name"
+          {...register("name", { required: true, maxLength: 80 })}
         />
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
           <div className="form-control max-w-xs">
             <label className="label">
-              <span className="label-text">
-                Pick the best fantasy franchise
-              </span>
+              <span className="label-text font-bold">Category*</span>
             </label>
             <select
-              {...register("Title", { required: true })}
-              className="select select-bordered select-info"
+              defaultValue='Pick One'
+              {...register("category", { required: true })}
+              className="select select-bordered border-[#799ec9] border-2"
             >
-              <option disabled selected>
-                Pick one
+              <option disabled value="Salad">
+                Salad
               </option>
-              <option value="Mr">Star Wars</option>
+              <option value="Pizza">Pizza</option>
+              <option value="Soup">Soup</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Drink">Drink</option>
             </select>
           </div>
 
           <div>
             <label className="label">
-              <span className="label-text">
-                Pick the best fantasy franchise
-              </span>
+              <span className="label-text font-bold">Price*</span>
             </label>
             <input
-              type="text"
-              placeholder="Type here"
-              {...register("Last name", { required: true, maxLength: 100 })}
-              className="input input-bordered input-info w-full max-w-xs"
+              type="number"
+              placeholder="Price"
+              {...register("price", { required: true, maxLength: 100 })}
+              className="input input-bordered border-[#799ec9] border-2 w-full max-w-xs"
             />
           </div>
         </div>
+
         <div className="w-full">
           <label className="label">
-            <span className="label-text">What is your name?</span>
+            <span className="label-text font-bold">Recipe Details*</span>
           </label>
           <textarea
-            className="textarea textarea-info w-full"
-            {...register("Last name", { required: true, maxLength: 100 })}
-            placeholder="Bio"
+            className="textarea border-[#799ec9] border-2 w-full"
+            {...register("details", { required: true, maxLength: 100 })}
+            placeholder="Recipe Details"
           ></textarea>
         </div>
-        <input className="btn btn-info" type="submit" />
+
+        <div className="my-5">
+          <input
+            type="file"
+            {...register("image", { required: true, maxLength: 80 })}
+            className="file-input file-input-bordered border-[#799ec9] border-2 w-full max-w-xs"
+          />
+        </div>
+        <input
+          className="btn bg-[#799ec9] border-[#1c3655] border-2 text-white"
+          type="submit"
+          value="Add Item"
+        />
       </form>
     </div>
   );
