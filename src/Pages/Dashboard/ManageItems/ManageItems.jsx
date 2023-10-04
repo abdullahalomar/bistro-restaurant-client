@@ -1,10 +1,48 @@
+import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
-import { FaEdit } from "react-icons/fa";
+// import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, , refetch] = useMenu();
+  const [axiosSecure] = useAxiosSecure();
+
+//   const handleEdit = () => {
+
+//   }
+
+
+const handleDelete = item => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            axiosSecure.delete(`/menu/${item._id}`)
+                .then(res => {
+                    console.log('deleted res', res.data);
+                    if (res.data.deletedCount > 0) {
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+
+        }
+    })
+}
+
 
   return (
     <div className="w-full w-full px-14">
@@ -18,8 +56,8 @@ const ManageItems = () => {
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
-              <thead className="bg-violet-400	text-white">
-                <tr>
+              <thead className="bg-violet-400 	text-white">
+                <tr className="">
                   <th></th>
                   <th>ITEM IMAGE</th>
                   <th>ITEM NAME</th>
@@ -45,21 +83,14 @@ const ManageItems = () => {
                       </div>
                     </td>
                     <td>{item.name}</td>
-                    <td>{item.price}</td>
+                    <td>${item.price}</td>
                     <td>
-                      {/* {user?.role === "admin" ? (
-                        <span className="font-bold text-green-600 text-lg">
-                          admin
-                        </span>
-                      ) : (
-                        
-                      )} */}
-                      <button className="btn btn-ghost  bg-violet-400">
+                      {/* <button onClick={() => handleEdit(item)} className="btn btn-ghost  bg-violet-400">
                           <FaEdit size={15}></FaEdit>
-                        </button>
+                        </button> */}
                     </td>
                     <td>
-                      <button className="btn btn-ghost   bg-red-400">
+                      <button onClick={() => handleDelete(item)} className="btn btn-ghost   bg-red-400">
                         <RiDeleteBin6Line size={15} color="white" />
                       </button>
                     </td>
