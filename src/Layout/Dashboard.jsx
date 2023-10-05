@@ -23,7 +23,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="drawer lg:drawer-open ">
+      <div className="drawer lg:drawer-open md:drawer-open sm:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
           {/* Page content here */}
@@ -75,7 +75,7 @@ const Dashboard = () => {
              : 
               <>
                 <li>
-                  <Link to="/dashboard/home">
+                  <Link to="/dashboard/userhome">
                     <FaHome></FaHome>User Home
                   </Link>
                 </li>

@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { FaCartPlus } from 'react-icons/fa';
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
 
   const handleLogOut = () => {
     logOut()
@@ -20,9 +22,6 @@ const Navbar = () => {
       <li>
         <a>Contact us</a>
       </li>
-      {/* <li>
-        <Link to='/dashboard'>Dashboard</Link>
-      </li> */}
       <li>
         <Link to="/menu">Our Menu</Link>
       </li>
@@ -30,7 +29,7 @@ const Navbar = () => {
         <Link to="/order/salad">Our Shop</Link>
       </li>
       <li>
-        <Link to="/secret">Secret</Link>
+        <Link to={isAdmin ? '/dashboard/adminhome' : '/dashboard/userhome'}>Dashboard</Link>
       </li>
       <li>
         <Link to="/dashboard/mycart">
