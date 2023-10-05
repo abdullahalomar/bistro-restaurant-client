@@ -5,8 +5,8 @@ import { GiMoneyStack } from "react-icons/gi";
 import { RiGroupLine } from "react-icons/ri";
 import { MdFastfood } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
-import { PieChart, Pie, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Legend, } from "recharts";
+import { PieChart, Pie, ResponsiveContainer} from "recharts";
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -164,6 +164,7 @@ const AdminHome = () => {
         <div className="w-1/2">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart width={400} height={400}>
+            <Legend/>
             <Pie
               data={chartData}
               cx="50%"
@@ -176,6 +177,7 @@ const AdminHome = () => {
             >
               {chartData.map((entry, index) => (
                 <Cell
+                name={entry.category}
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
                 />
