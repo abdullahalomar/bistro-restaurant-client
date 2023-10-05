@@ -11,14 +11,17 @@ const CheckOutForm = ({ price }) => {
   const [cardError, setCardError] = useState('');
   const [axiosSecure] = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState('');
+  const [processing, setProcessing] = useState(false);
+  const [transactionId, setTransactionId] = useState();
 
   useEffect( () => {
+    console.log(price);
     axiosSecure.post('/create-payment-intent', {price})
     .then(res => {
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
     })
-  }, [price, axiosSecure])
+  }, [])
 
 
   const handleSubmit = async (event) => {
@@ -45,8 +48,10 @@ const CheckOutForm = ({ price }) => {
         setCardError(error.message);
       } else {
         setCardError('');
-        console.log('[PaymentMethod]', paymentMethod);
+        // console.log('[PaymentMethod]', paymentMethod);
       }
+
+      setProcessing(true)
 
       const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
         clientSecret,
@@ -64,7 +69,11 @@ const CheckOutForm = ({ price }) => {
       if (confirmError) {
         console.log(confirmError);
       }
-      console.log(paymentIntent);
+      console.log('payment intent', paymentIntent);
+      setProcessing(false)
+      if (paymentIntent.status === "succeeded") {
+        setTransactionId(paymentIntent.id)
+      }
 
   };
 
@@ -88,10 +97,11 @@ const CheckOutForm = ({ price }) => {
           }}
         />
         <div className="mt-5">
-        {cardError && <p className="text-red-600">{cardError}</p>}
+        {cardError && <p className="text-red-500">{cardError}</p>}
+        {transactionId && <p className="text-black-600"><span className="text-green-500 font-bold">Transaction Complete with transactionId:</span> {transactionId}</p>}
         </div>
 
-        <button className="btn btn-active btn-primary w-72 mt-10" type="submit" disabled={!stripe || !clientSecret}>
+        <button className="btn btn-active btn-primary w-72 mt-10" type="submit" disabled={!stripe || !clientSecret || processing}>
           Pay
         </button>
       </form>
